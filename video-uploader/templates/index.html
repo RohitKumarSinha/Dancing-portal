@@ -65,7 +65,8 @@
     <div class="container">
       <h1>UPLOAD VIDEO</h1>
       <p class="lead">Upload your video <b>here</b></p>
-      <form>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="form-group">
           <label for="userName">Enter Your name</label>
           <input
@@ -87,8 +88,18 @@
           />
           <br />
           <label for="userVideo">Upload your video here</label>
-          <input type="file" class="form-control-file" id="userVideo" />
+          <input
+            type="file"
+            name="myfile"
+            class="form-control-file"
+            id="userVideo"
+          />
         </div>
+
+        <label for="userTextarea">Enter description of the video</label>
+        <textarea class="form-control" id="userTextarea" rows="3"></textarea>
+
+        <br />
 
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
