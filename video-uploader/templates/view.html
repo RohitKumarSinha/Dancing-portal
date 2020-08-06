@@ -95,7 +95,51 @@
       <input type="text" name="filter" id="filter" />
       <label for="filter">Filter Tasks</label>
     </div> -->
-    <div class="row" id="showVideos"></div>
+  <div class="row" id="showVideos">
+      <!-- loop from here -->
+    {% for video in videos %}
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <div class="card" style="height: 400px;">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class='sproutvideo-player' src={{video.url}} width='630' height='336' frameborder='0'
+            allowfullscreen></iframe>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+          <div class="alert alert-success text-center" name="id" role="alert">
+            <strong>ID :- </strong> {{video.id}}
+          </div>
+          <span class="card-title"><strong>{{video.name}}</strong></span>
+          <span class="value float-right">{{video.votes}}</span>
+          <span class="badge badge-pill badge-success float-right mt-1">{{video.user_rating__rating}}<i class="fas fa-star"></i></span>
+          <p class="card-text">{{video.desc}}</p>
+        </div>
+        </p>
+        <form method="POST">
+            {% csrf_token %}
+        <div type="button" data-toggle="modal" data-target=".bd-example-modal-lg"
+          class="btn-group btn-group-toggle btn-sm">
+          <label class="btn one">
+            <input type="radio" value="1" name="options" id="option1"> 1
+          </label>
+          <label class="btn two">
+            <input type="radio" value="2" name="options" id="option2"> 2
+          </label>
+          <label class="btn three">
+            <input type="radio" value="3" name="options" id="option3"> 3
+          </label>
+          <label class="btn four">
+            <input type="radio" value="4" name="options" id="option4"> 4
+          </label>
+          <label class="btn five">
+            <input type="radio" value="5" name="options" id="option5"> 5
+          </label>
+        </div>
+      </div>
+    </div>
+    <!-- loop end here -->
+    {% endfor %}
+  </div>
     <div
       class="modal fade bd-example-modal-lg" id="modal"
       tabindex="-1"
@@ -204,13 +248,13 @@
                     pattern="[0-9]{1}"
                   /> -->
                   <div class="form-group mt-3">
-                    <input type="text" id="input1" class="form-control" placeholder="Enter your Number">
+                    <input type="text" id="input1" name="mobileNo" class="form-control" placeholder="Enter your Number">
                     <label id="test"></label>
                   </div>
                   <button
                     class="btn btn-primary btn-embossed"
-                    type="submit"
-                    name="submit"
+                    type="button"
+                    name="button"
                     onclick="reverse()"
                   >
                     Send OTP
@@ -228,7 +272,7 @@
                       id="otpThree" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input type="text" id="otpFour"
                       maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
                       <label id="test1"></label>
-                    <button class="btn btn-primary btn-embossed" type="submit" onclick="getTasks()">
+                    <button class="btn btn-primary btn-embossed" name="submit" type="submit" onclick="getTasks()">
                       Verify
                     </button>
                   </div>
@@ -243,18 +287,15 @@
             </div>
           </div>
         </div>
+        </form>
       </div>
     </div>
-  </div>
 
   <body>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
       integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -265,8 +306,9 @@
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
     ></script>
-    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+    <script src="{% static 'js/view.js' %}"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script> -->
     <!-- <script src="https://cdn.plyr.io/3.6.2/plyr.js"></script> -->
     <!-- <script src="https://vjs.zencdn.net/7.8.3/video.js"></script> -->
     <!-- <script src="config.js"></script>

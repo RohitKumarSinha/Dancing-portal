@@ -40,9 +40,16 @@ def index(request):
         print(id,token)
         url = "https://videos.sproutvideo.com/embed/" + id + "/" + token
         print(url)
-        video_data = upload_video(name=name, email=email, desc=desc, url = url, )
+        video_data = upload_video(name=name, email=email, desc=desc, url = url)
         video_data.save()
     return render(request,'index.html')
 
 def view(request):
-    return render(request,'view.html')
+    if request.method == 'POST':
+        Number = request.POST.get('mobileNo')
+        option = request.POST.get('options')
+        print(Number)
+        print(option)
+    videos = upload_video.objects.all().values('id','name', 'email', 'desc','url', 'votes', 'status', 'user_rating__rating', 'user_rating__mob_no')
+    args = { "videos" : videos }
+    return render(request,'view.html', args)
