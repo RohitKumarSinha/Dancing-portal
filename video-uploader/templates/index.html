@@ -71,6 +71,7 @@
           <label for="userName">Enter Your name</label>
           <input
             type="text"
+            name="name"
             class="form-control"
             id="userName"
             placeholder="Your name here"
@@ -82,6 +83,7 @@
           <input
             type="email"
             class="form-control"
+            name="email"
             id="userEmail"
             aria-describedby="emailHelp"
             placeholder="Enter email"
@@ -97,7 +99,12 @@
         </div>
 
         <label for="userTextarea">Enter description of the video</label>
-        <textarea class="form-control" id="userTextarea" rows="3"></textarea>
+        <textarea
+          class="form-control"
+          name="desc"
+          id="userTextarea"
+          rows="3"
+        ></textarea>
 
         <br />
 
