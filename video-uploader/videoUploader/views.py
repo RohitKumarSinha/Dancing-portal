@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from sprout.client import SproutClient
-from .models import upload_video
+from .models import upload_video,user_rating
 # from urlparse import urljoin
 
 # Create your views here.
