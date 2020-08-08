@@ -184,3 +184,18 @@ class getOtp {
     return status;
   }
 }
+
+function change(foo, bar) {
+  $.ajax({
+    url: "/show",
+    data: {
+      foo: foo,
+      bar: bar,
+    },
+    success: function () {
+      alert("data added successfully");
+    },
+  });
+
+  console.log(foo, bar);
+}

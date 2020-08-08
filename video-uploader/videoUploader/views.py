@@ -46,10 +46,20 @@ def index(request):
 
 def view(request):
     if request.method == 'POST':
-        Number = request.POST.get('mobileNo')
-        option = request.POST.get('options')
+        Number = request.POST.get('mobile')
+        option = request.POST.get('option')
+        # vid = request.POST.get('video')
+        # for opt in option:
+        #     print(opt)
+        # name = request.POST.get('rating')
         print(Number)
         print(option)
+        # print(vid)
+        # print(name)
+    # foo = request.GET.get('foo')
+    # print(foo)
+    # foo = request.GET.get('bar')
+    # print(foo)
     videos = upload_video.objects.all()
     args = { "videos" : videos }
     return render(request,'view.html', args)

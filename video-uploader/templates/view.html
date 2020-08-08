@@ -93,6 +93,8 @@
       <input type="text" name="filter" id="filter" />
       <label for="filter">Filter Tasks</label>
     </div> -->
+    <form id="new_form">
+        {% csrf_token %}
   <div class="row" id="showVideos">
       <!-- loop from here -->
     {% for video in videos %}
@@ -104,33 +106,33 @@
         </div>
         <div class="card-body">
           <p class="card-text">
-          <div class="alert alert-success text-center" name="id" role="alert">
-            <strong>ID :- </strong> {{video.id}}
+          <div id="demo" class="alert alert-success text-center"  role="alert" value={{video.id}}>
+            <strong>ID :- </strong> PUTATOE-500{{ forloop.counter }}
+            <!-- <input type="number" id="videoId" name="video" value={{video.id}} disabled=""> -->
           </div>
           <span class="card-title"><strong>{{video.name}}</strong></span>
-          <span class="value float-right">(110)</span>
+          <span class="value float-right" name="rating">{{ forloop.counter }}</span>
           <span class="badge badge-pill badge-success float-right mt-1">4.3 <i class="fas fa-star"></i></span>
           <p class="card-text">{{video.desc}}</p>
         </div>
         </p>
-        <form method="POST">
-            {% csrf_token %}
+      
         <div type="button" data-toggle="modal" data-target=".bd-example-modal-lg"
           class="btn-group btn-group-toggle btn-sm">
           <label class="btn one">
-            <input type="radio" value="1" name="options" id="option1"> 1
+            <input type="radio" value=1|{{video.id}} name="options" id="option1"> 1
           </label>
           <label class="btn two">
-            <input type="radio" value="2" name="options" id="option2"> 2
+            <input type="radio" value=2|{{video.id}} name="options" id="option2"> 2
           </label>
           <label class="btn three">
-            <input type="radio" value="3" name="options" id="option3"> 3
+            <input type="radio" value=3|{{video.id}} name="options" id="option3"> 3
           </label>
           <label class="btn four">
-            <input type="radio" value="4" name="options" id="option4"> 4
+            <input type="radio" value=4|{{video.id}} name="options" id="option4"> 4
           </label>
           <label class="btn five">
-            <input type="radio" value="5" name="options" id="option5"> 5
+            <input type="radio" value=5|{{video.id}} name="options" id="option5"> 5
           </label>
         </div>
       </div>
@@ -270,7 +272,7 @@
                       id="otpThree" maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input type="text" id="otpFour"
                       maxlength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
                       <label id="test1"></label>
-                    <button class="btn btn-primary btn-embossed" name="submit" type="submit" onclick="getTasks()">
+                    <button class="btn btn-primary btn-embossed" name="submit" value="submit" type="submit" onclick="getTasks()">
                       Verify
                     </button>
                   </div>
@@ -292,8 +294,8 @@
   <body>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
       integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -312,4 +314,27 @@
     <!-- <script src="config.js"></script>
     <script src="getImage.js"></script> -->
   </body>
+  <script type="text/javascript">
+    $(document).on('submit', '#new_form', function(e){
+      e.preventDefault();
+      // mobile = document.getElementById('input1').value; 
+      // name = document.querySelector('input[name="options"]:checked').value;
+      // console.log("mobile number", mobile)
+      // console.log("options", name)
+
+      $.ajax({
+        type: 'POST',
+        url:'/show/',
+        data: {
+          mobile: document.getElementById('input1').value,
+          option: document.querySelector('input[name="options"]:checked').value,
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        },
+
+        success: function(){
+          alert("data send")
+        }
+      })
+    })
+  </script>
 </html>
